@@ -2,15 +2,12 @@ import { NavigationContainer } from "@react-navigation/native";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import HomeScreen from "./screens/HomeScreen";
 import GithubScreen from "./screens/GithubScreen";
-import { useFonts } from "expo-font";
-import { useEffect, useState } from "react";
 
 
 const Stack = createNativeStackNavigator();
 
 export default function App() {
-  
-
+ 
   return (
     <NavigationContainer>
       <Stack.Navigator>

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useCallback, useEffect, useState } from "react";
 import {
   View,
   StyleSheet,
@@ -10,12 +10,24 @@ import {
 } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import { SimpleLineIcons } from "@expo/vector-icons";
+import ModalComponent from "../components/ModalComponent";
+import { Feather } from "@expo/vector-icons";
 
 const HomeScreen = ({ navigation }) => {
   const [users, setUsers] = useState([]);
   const [page, setPage] = useState(1);
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
+  const [modalVisible, setModalVisible] = useState(false);
+
+  // Modal
+  const openModal = () => {
+    setModalVisible(true);
+  };
+
+  const closeModal = () => {
+    setModalVisible(false);
+  };
 
   const fetchUsers = async () => {
     try {
@@ -115,6 +127,10 @@ const HomeScreen = ({ navigation }) => {
           paddingVertical: 8,
         }}
       >
+        <TouchableOpacity onPress={openModal} style={{alignSelf: "flex-end"}}>
+          <Feather name="more-vertical" size={20} color="white" />
+        </TouchableOpacity>
+        <ModalComponent visible={modalVisible} onClose={closeModal} />
         <View
           style={{
             flexDirection: "row",
