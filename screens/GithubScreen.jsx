@@ -34,6 +34,7 @@ const GithubScreen = () => {
           source={{ uri: url }}
           javaScriptEnabled
           domStorageEnabled={true}
+          startInLoadingState={true}
         />
       )}
     </SafeAreaView>
