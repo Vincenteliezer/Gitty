@@ -1,0 +1,25 @@
+{
+    "total_count": 19319,
+    "incomplete_results": false,
+    "items": [{
+        "login": "david-kariuki",
+        "id": 14153276,
+        "node_id": "MDQ6VXNlcjE0MTUzMjc2",
+        "avatar_url": "https://avatars.githubusercontent.com/u/14153276?v=4",
+        "gravatar_id": "",
+        "url": "https://api.github.com/users/david-kariuki",
+        "html_url": "https://github.com/david-kariuki",
+        "followers_url": "https://api.github.com/users/david-kariuki/followers",
+        "following_url": "https://api.github.com/users/david-kariuki/following{/other_user}",
+        "gists_url": "https://api.github.com/users/david-kariuki/gists{/gist_id}",
+        "starred_url": "https://api.github.com/users/david-kariuki/starred{/owner}{/repo}",
+        "subscriptions_url": "https://api.github.com/users/david-kariuki/subscriptions",
+        "organizations_url": "https://api.github.com/users/david-kariuki/orgs",
+        "repos_url": "https://api.github.com/users/david-kariuki/repos",
+        "events_url": "https://api.github.com/users/david-kariuki/events{/privacy}",
+        "received_events_url": "https://api.github.com/users/david-kariuki/received_events",
+        "type": "User",
+        "site_admin": false,
+        "score": 1.0
+    }]
+}
