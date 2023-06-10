@@ -1,5 +1,7 @@
 # Gitty
-React Native Android app listing all github users in Kenya. NOTE: ONLY in Kenya
+React Native Android app listing all github users in Kenya. NOTE: ONLY in Kenya, arranged according to followers - from most to least.
+
+![mockuup](./assets/mockuup.jpg) 
 
 ## Features
 1. Search Functionality: Search bar that allows users to search for GitHub users in Kenya.
