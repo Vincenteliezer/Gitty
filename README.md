@@ -4,7 +4,7 @@ React Native Android app listing all github users in Kenya. NOTE: ONLY in Kenya,
 
 ## Download App
 
-[Download](https://expo.dev/artifacts/eas/8NBYKi2tXMJoffBXTxqtP2.apk)
+[Download](https://expo.dev/artifacts/eas/foHhd56Fcg6T52mnpD5cdp.apk)
 
 ![mockuup](./assets/mockuup.jpg)
 
