@@ -7,6 +7,7 @@ import {
   Image,
   TouchableOpacity,
   SafeAreaView,
+  ActivityIndicator,
 } from "react-native";
 import { FlashList } from "@shopify/flash-list";
 import { SimpleLineIcons } from "@expo/vector-icons";
@@ -19,6 +20,8 @@ const HomeScreen = ({ navigation }) => {
   const [searchQuery, setSearchQuery] = useState("");
   const [filteredUsers, setFilteredUsers] = useState([]);
   const [modalVisible, setModalVisible] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
+  const [textInputValue, setTextInputValue] = useState("");
 
   // Modal
   const openModal = () => {
@@ -31,6 +34,7 @@ const HomeScreen = ({ navigation }) => {
 
   const fetchUsers = async () => {
     try {
+      setIsLoading(true);
       const response = await fetch(
         `https://api.github.com/search/users?q=location:Kenya&page=${page}&per_page=100`
       );
@@ -43,6 +47,8 @@ const HomeScreen = ({ navigation }) => {
       }
     } catch (error) {
       console.error("Error fetching GitHub users:", error);
+    } finally {
+      setIsLoading(false);
     }
   };
 
@@ -52,12 +58,20 @@ const HomeScreen = ({ navigation }) => {
 
   // Search users function
   const handleSearch = (query) => {
+    setTextInputValue(query); // Update the textInputValue state
     setSearchQuery(query);
     // Filter the users based on search query
     const filteredUsers = users.filter((user) =>
       user.login.toLowerCase().includes(query.toLowerCase())
     );
     setFilteredUsers(filteredUsers);
+  };
+
+  // Function to clear text input value
+  const clearTextInput = () => {
+    setTextInputValue(""); // Clear the textInputValue state
+    setSearchQuery(""); // Clear the searchQuery state
+    setFilteredUsers([]); // Clear the filteredUsers state
   };
 
   // Total count of all results
@@ -67,12 +81,21 @@ const HomeScreen = ({ navigation }) => {
   };
 
   // Loading Component
-  const renderEmptyList = () => (
-    <View style={{ padding: 8 }}>
-      <Text style={{ color: "gray" }}>Empty!</Text>
-    </View>
-  );
-
+  const renderEmptyList = () => {
+    if (isLoading) {
+      return (
+        <View style={{ padding: 8 }}>
+          <ActivityIndicator size="small" color="gray" />
+        </View>
+      );
+    } else {
+      return (
+        <View style={{ padding: 8 }}>
+          <Text style={{ color: "gray" }}>Github user not found!</Text>
+        </View>
+      );
+    }
+  };
   // Navigate to Github Screen - Dynamic github url
   const navigateToWebView = (url) => {
     navigation.navigate("Github", { url });
@@ -127,7 +150,7 @@ const HomeScreen = ({ navigation }) => {
           paddingVertical: 8,
         }}
       >
-        <TouchableOpacity onPress={openModal} style={{alignSelf: "flex-end"}}>
+        <TouchableOpacity onPress={openModal} style={{ alignSelf: "flex-end" }}>
           <Feather name="more-vertical" size={20} color="white" />
         </TouchableOpacity>
         <ModalComponent visible={modalVisible} onClose={closeModal} />
@@ -147,6 +170,7 @@ const HomeScreen = ({ navigation }) => {
                 color: "white",
                 marginLeft: 6,
                 fontFamily: "",
+                letterSpacing: 4,
               }}
             >
               Gitty
@@ -156,23 +180,33 @@ const HomeScreen = ({ navigation }) => {
           <Text style={{ color: "white" }}>Results: {getTotalUsers()}</Text>
         </View>
 
-        <TextInput
-          cursorColor={"white"}
-          placeholderTextColor={"gray"}
-          style={{
-            height: 40,
-            borderColor: "gray",
-            borderWidth: 1,
-            paddingLeft: 12,
-            borderRadius: 10,
-            marginTop: 8,
-            color: "gray",
-            fontSize: 16,
-          }}
-          placeholder="Search"
-          value={searchQuery}
-          onChangeText={handleSearch}
-        />
+        {/* // Search input  */}
+        <View>
+          <TextInput
+            cursorColor={"white"}
+            placeholderTextColor={"gray"}
+            style={{
+              height: 40,
+              borderColor: "gray",
+              borderWidth: 1,
+              paddingLeft: 12,
+              borderRadius: 10,
+              marginTop: 8,
+              color: "gray",
+              fontSize: 16,
+              position: "relative",
+            }}
+            placeholder="Search"
+            value={textInputValue}
+            onChangeText={handleSearch}
+          />
+          <TouchableOpacity
+            onPress={clearTextInput}
+            style={{ position: "absolute", right: 12, top: 17 }}
+          >
+            <Feather name="x" size={20} color="gray" />
+          </TouchableOpacity>
+        </View>
       </View>
       <View style={{ backgroundColor: "#22272e", flex: 1 }}>
         <FlashList
